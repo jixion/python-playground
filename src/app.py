@@ -1,4 +1,4 @@
-import sqlite3
+from google.cloud import storage
 
 from flask import Flask, request
 from flask_injector import FlaskInjector
@@ -7,15 +7,15 @@ app = Flask(__name__)
 
 
 @app.route("/")
-def main(db: sqlite3.Connection):
-    print(db)
+def main(scp: storage.Client):
+    print(scp)
     return "Welcome!"
 
 
 def configure(binder):
     binder.bind(
-        sqlite3.Connection,
-        to=sqlite3.Connection(':memory:'),
+        storage.Client,
+        to=storage.Client(':memory:'),
         scope=request
     )
 
