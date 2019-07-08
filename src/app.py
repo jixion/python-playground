@@ -8,10 +8,10 @@ app = Flask(__name__)
 
 @app.route("/")
 def main(scp: storage.Client):
+    print(scp)
     bucket = scp.bucket('br549')
     blob = bucket.blob('requirements.txt')
-    url = blob.upload_from_file(open('requirements.txt', '+r'))
-    print(url)
+    blob.upload_from_file(open('requirements.txt', '+r'))
     return "Welcome!"
 
 
